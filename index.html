@@ -217,7 +217,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--white);color:var(--g
     <div class="step-dot">1</div>
     <div class="sec-tag">step 01</div>
     <div class="sec-title">나에게 한 줄 써보세요</div>
-    <div class="sec-desc">수강신청 완료 후 참여 가능합니다. 작성하면 응모권이 자동으로 지급됩니다.</div>
+    <div class="sec-desc">작성하면 응모권이 자동으로 지급됩니다.</div>
     <div class="write-card">
       <textarea id="inp-msg" placeholder="예: 이번 학기엔 꼭 해낼게. 나를 믿어!" maxlength="50"></textarea>
       <div class="char-row"><span id="char-now">0</span> / 50</div>
@@ -334,7 +334,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--white);color:var(--g
 </div>
 
 <script>
-var totalTickets=0, remain=0, applied=[0,0,0,0], submitted=false, finished=false;
+var totalTickets=5, remain=5, applied=[0,0,0,0], submitted=false, finished=false;
+
+window.addEventListener('load', function(){
+  totalTickets=5; remain=5;
+  document.getElementById('apply-locked').style.display='none';
+  document.getElementById('apply-card').style.display='block';
+  var dot=document.getElementById('step2-dot');
+  dot.style.background='var(--blue)';
+  dot.style.color='var(--white)';
+  updateUI();
+});
 
 document.getElementById('inp-msg').addEventListener('input',function(){
   document.getElementById('char-now').textContent=this.value.length;
@@ -356,7 +366,7 @@ function submitWrite(){
   btn.disabled=true;
   btn.textContent='작성 완료!';
   addFeed(msg);
-  var subjects=3;
+  var subjects=15;
   totalTickets=getTicketCount(subjects);
   remain=totalTickets;
   activateApply();
